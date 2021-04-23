@@ -1,6 +1,6 @@
 import React from 'react';
-import Accordion from './Accordion';
-
+import Accordion from './Accordion.js';
+import WikipediaSearch from './WikipediaSearch.js';
 const items = [
 	{
 		title: "What is React?",
@@ -20,7 +20,8 @@ class App extends React.Component {
 	render () {
 		return (
 			<div>
-				<Accordion items={items} />
+				<WikipediaSearch/>
+
 			</div>
 		);
 	};
