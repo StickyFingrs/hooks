@@ -35,10 +35,19 @@ const WikipediaSearch = () => {
 
 		// Prevents the Wikipedia API giving an error for
 		// no search term when the component first renders
-		if (searchTerm){
-			search();
-		}
-		
+
+		const timeoutId = setTimeout(() => {
+			if (searchTerm){
+				search();
+			}
+		}, 500);
+
+		// This cleanup function gets called at the start every time the component
+		// rerenders, but only after the first time it renders
+		return () => {
+			clearTimeout(timeoutId);
+		};
+
 	}, [searchTerm]);
 
 	const renderedResults = searchResults.map((searchResult) => {
@@ -66,6 +75,7 @@ const WikipediaSearch = () => {
 	})
 	return(
 		<div>
+			{/* Search Query */}
 			<div className="ui form">
 				<div className="field">
 					<label>Enter Search Term</label>
@@ -76,6 +86,8 @@ const WikipediaSearch = () => {
 					/>
 				</div>
 			</div>
+
+			{/* Search Results */}
 			<div className="ui celled list">
 				{renderedResults}
 			</div>
