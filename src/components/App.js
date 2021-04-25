@@ -1,5 +1,6 @@
 import React from 'react';
 import Accordion from './Accordion.js';
+import Dropdown from './Dropdown.js';
 import WikipediaSearch from './WikipediaSearch.js';
 const items = [
 	{
@@ -20,7 +21,7 @@ class App extends React.Component {
 	render () {
 		return (
 			<div>
-				<WikipediaSearch/>
+				<Dropdown/>
 
 			</div>
 		);
