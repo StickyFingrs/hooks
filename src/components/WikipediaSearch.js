@@ -3,8 +3,9 @@ import Axios from 'axios';
 
 const WikipediaSearch = () => {
 	const [searchTerm, setSearchTerm] = useState("");
-
+	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 	const [searchResults, setSearchResults] = useState([]);
+
 	// useEffect allows functional components to use
 	// something similar to lifecycle methods. 
 	// This second argument in useEffect determines 
@@ -16,39 +17,42 @@ const WikipediaSearch = () => {
 	//    whenever it rerenders and some piece of data has changed (an array containing
 	//	  the variables that you want to be checked)
 
-	console.log(searchResults);
+	// Adds a delay before the search is done to avoid multiple API calls
+	// while the user is still typing.
+	useEffect(() => {
+		const timerId = setTimeout(() => {
+			setDebouncedSearchTerm(searchTerm);
+		}, 1000);
+
+		// This cleanup function gets called at the start every time the component
+		// rerenders, but only after the first time it renders
+		return () => {
+			clearTimeout(timerId);
+		};
+	}, [searchTerm]);
 
 	useEffect(() => {
 		const search = async () => {
+			// GET request
 			const { data } = await Axios.get("https://en.wikipedia.org/w/api.php", {
 				params: {
 					action: "query",
 					list: "search",
 					origin: "*",
 					format: "json",
-					srsearch: searchTerm
+					srsearch: debouncedSearchTerm
 				}
 			});
 
+			// Populates searchResults array
 			setSearchResults(data.query.search);
-		};
 
-		// Prevents the Wikipedia API giving an error for
-		// no search term when the component first renders
-
-		const timeoutId = setTimeout(() => {
-			if (searchTerm){
+			// Prevents the an error for no search term
+			if (debouncedSearchTerm){
 				search();
 			}
-		}, 500);
-
-		// This cleanup function gets called at the start every time the component
-		// rerenders, but only after the first time it renders
-		return () => {
-			clearTimeout(timeoutId);
 		};
-
-	}, [searchTerm]);
+	}, [debouncedSearchTerm]);
 
 	const renderedResults = searchResults.map((searchResult) => {
 		return (
