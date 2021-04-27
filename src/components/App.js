@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Accordion from './Accordion.js';
-import Dropdown from './Dropdown.js';
 import WikipediaSearch from './WikipediaSearch.js';
+import Dropdown from './Dropdown.js';
+
 const items = [
 	{
 		title: "What is React?",
@@ -17,15 +18,32 @@ const items = [
 	}
 ]
 
-class App extends React.Component {
-	render () {
-		return (
-			<div>
-				<Dropdown/>
+const colourOptions = [
+	{
+		label: "Red Colour",
+		value: "red"
+	},
+	{
+		label: "Blue Colour",
+		value: "blue"
+	}, 
+	{
+		label: "Green Colour",
+		value: "green"
+	}
+]
+const App = () => {
+	const [selected, setSelected] = useState(colourOptions[0]);
 
-			</div>
-		);
-	};
+	return (
+		<div>
+			<Dropdown 
+				selected={selected}
+				onSelectedChange={setSelected}
+				options={colourOptions}
+			/>
+		</div>
+	);
 }
 
 export default App;
