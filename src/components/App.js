@@ -34,14 +34,18 @@ const colourOptions = [
 ]
 const App = () => {
 	const [selected, setSelected] = useState(colourOptions[0]);
-
+	const [showDropdown, setShowDropdown] = useState(true);
 	return (
 		<div>
+			<button onClick={() => {setShowDropdown(!showDropdown)}}>Toggle Dropdown</button>
+			
+			{showDropdown ? 
 			<Dropdown 
 				selected={selected}
 				onSelectedChange={setSelected}
 				options={colourOptions}
 			/>
+			: null}
 		</div>
 	);
 }
