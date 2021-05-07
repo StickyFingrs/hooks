@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 
-const Dropdown = ({options, selected, onSelectedChange}) => {
+const Dropdown = ({label, options, selected, onSelectedChange}) => {
 	// Determines if dropdown is open or not
 	const [open, setOpen] = useState(false);
 	const ref = useRef();
@@ -46,7 +46,7 @@ const Dropdown = ({options, selected, onSelectedChange}) => {
 	return (
 		<div ref={ref} className="ui form">
 			<div className="field">
-				<label className="label">Select a Colour</label>
+				<label className="label">{label}</label>
 				<div 
 					// Because this onClick event listener only occurs after the event listener in the body,
 					// since this just flips the open boolean to the opposite value, it just
@@ -62,7 +62,6 @@ const Dropdown = ({options, selected, onSelectedChange}) => {
 					</div>
 				</div>
 			</div>
-			<div style={{ color: `${selected.value}` }}>Text Colour here</div>
 		</div>
 	);
 }

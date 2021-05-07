@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Accordion from './Accordion.js';
 import WikipediaSearch from './WikipediaSearch.js';
 import Dropdown from './Dropdown.js';
+import Translate from './Translate.js';
 
 const items = [
 	{
@@ -32,20 +33,11 @@ const colourOptions = [
 		value: "green"
 	}
 ]
+
 const App = () => {
-	const [selected, setSelected] = useState(colourOptions[0]);
-	const [showDropdown, setShowDropdown] = useState(true);
 	return (
 		<div>
-			<button onClick={() => {setShowDropdown(!showDropdown)}}>Toggle Dropdown</button>
-			
-			{showDropdown ? 
-			<Dropdown 
-				selected={selected}
-				onSelectedChange={setSelected}
-				options={colourOptions}
-			/>
-			: null}
+			<Translate/>
 		</div>
 	);
 }
