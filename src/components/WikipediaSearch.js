@@ -46,12 +46,11 @@ const WikipediaSearch = () => {
 
 			// Populates searchResults array
 			setSearchResults(data.query.search);
-
-			// Prevents the an error for no search term
-			if (debouncedSearchTerm){
-				search();
-			}
 		};
+		// Prevents the an error for no search term
+		if (debouncedSearchTerm){
+			search();
+		}
 	}, [debouncedSearchTerm]);
 
 	const renderedResults = searchResults.map((searchResult) => {
