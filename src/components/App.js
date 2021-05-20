@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Accordion from './Accordion.js';
 import WikipediaSearch from './WikipediaSearch.js';
 import Dropdown from './Dropdown.js';
@@ -34,10 +34,36 @@ const colourOptions = [
 	}
 ]
 
+const showAccordion = () => {
+	if (window.location.pathname === '/') {
+		return <Accordion items={items}/>;
+	}
+}
+
+const showSearch = () => {
+	if (window.location.pathname === '/search') {
+		return <WikipediaSearch/>;
+	}
+}
+
+const showDropdown = () => {
+	if (window.location.pathname === '/dropdown') {
+		return <Dropdown label="Select a Colour" options={colourOptions}/>;
+	}
+}
+
+const showTranslate = () => {
+	if (window.location.pathname === '/translate') {
+		return <Translate items={items}/>;
+	}
+}
 const App = () => {
 	return (
 		<div>
-			<Translate/>
+			{showAccordion()}
+			{showSearch()}
+			{showDropdown()}
+			{showTranslate()}
 		</div>
 	);
 }
