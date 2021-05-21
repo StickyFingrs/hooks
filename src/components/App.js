@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Header from './Header.js';
+import Route from './Route.js';
 import Accordion from './Accordion.js';
 import WikipediaSearch from './WikipediaSearch.js';
 import Dropdown from './Dropdown.js';
@@ -34,36 +36,31 @@ const colourOptions = [
 	}
 ]
 
-const showAccordion = () => {
-	if (window.location.pathname === '/') {
-		return <Accordion items={items}/>;
-	}
-}
-
-const showSearch = () => {
-	if (window.location.pathname === '/search') {
-		return <WikipediaSearch/>;
-	}
-}
-
-const showDropdown = () => {
-	if (window.location.pathname === '/dropdown') {
-		return <Dropdown label="Select a Colour" options={colourOptions}/>;
-	}
-}
-
-const showTranslate = () => {
-	if (window.location.pathname === '/translate') {
-		return <Translate items={items}/>;
-	}
-}
 const App = () => {
+	const [selected, setSelected] = useState(colourOptions[0])
 	return (
 		<div>
-			{showAccordion()}
-			{showSearch()}
-			{showDropdown()}
-			{showTranslate()}
+			<Header/>
+			<Route path="/">
+				<Accordion items={items}/>
+			</Route>
+
+			<Route path="/search">
+				<WikipediaSearch/>
+			</Route>
+
+			<Route path="/list">
+				<Dropdown 
+					label="Select a Colour" 
+					options={colourOptions}
+					selected={selected}
+					onSelectedChange={setSelected}
+				/>
+			</Route>
+
+			<Route path="/translate">
+				<Translate/>
+			</Route>
 		</div>
 	);
 }
